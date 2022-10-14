@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:url_launcher/link.dart';
+//import 'package:json_annotation/json_annotation.dart';
 
 import 'package:noticias/member.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NotState extends State<NotWidget> {
-  var _members = <Member>[];
+  var _Produtos = <Produto>[];
   final _font = const TextStyle(fontSize: 20.0);
 
   @override
@@ -18,15 +19,16 @@ class NotState extends State<NotWidget> {
   }
 
   _loadData() async {
-    String url = "http://servicodados.ibge.gov.br/api/v3/noticias/?qtd=30";
+    String url =
+        "http://localhost:8001/CONSULTAPRECO?produto=Smirnoff 998&Timeout=2";
     http.Response response = await http.get(Uri.parse(url));
-    //print(json.decode(response.body));
 
     setState(() {
-      final membersJSON = (json.decode(response.body)['items']);
-      for (var member in membersJSON) {
-        _members.add(Member(member["titulo"], member["introducao"],
-            member["data_publicacao"], member["link"]));
+      print(response.body);
+      final responseReplaced = response.body.replaceAll("'", '"');
+      final membersJSON = json.decode(responseReplaced);
+      for (var prod in membersJSON) {
+        _Produtos.add(Produto(prod["a"], prod["b"], prod["c"], prod["d"]));
       }
     });
   }
@@ -36,25 +38,19 @@ class NotState extends State<NotWidget> {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
+            CircleAvatar(
+              radius: 28,
+              backgroundImage: NetworkImage(
+                  _Produtos[position].Link.replaceAll('////', '//')),
+            ),
             Text(
-              "${_members[position].titulo}",
+              "${_Produtos[position].Site}",
               style: _font,
             ),
-            Text("${_members[position].introducao}",
+            Text("${_Produtos[position].Descricao}",
                 style: TextStyle(color: Colors.black, fontSize: 15.0)),
-            IconButton(
-              icon: Icon(Icons.link),
-              onPressed: () async {
-                if (await canLaunch(_members[position].link)) {
-                  await launch(_members[position].link);
-                } else {
-                  throw 'Not Lauch ${_members[position].link}';
-                }
-                ;
-              },
-            ),
             Text(
-              "${_members[position].data_publicacao}",
+              "${_Produtos[position].Preco}",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 13.0,
@@ -76,7 +72,7 @@ class NotState extends State<NotWidget> {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
-      itemCount: _members.length,
+      itemCount: _Produtos.length,
       itemBuilder: (BuildContext context, int position) {
         return _buildRow(position);
       },

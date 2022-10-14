@@ -1,31 +1,37 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:noticias/MyWidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noticias/authCheck.dart';
 
-void main() => runApp(MainApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  runApp(MainApp());
+}
 
 class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "NoticiasApp",
+      title: "Produtos",
       theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
+          primarySwatch: Colors.blue,
           textTheme: GoogleFonts.bebasNeueTextTheme(),
-          scaffoldBackgroundColor: Colors.blueGrey[100]),
+          scaffoldBackgroundColor: Colors.blue[100]),
 
       //darkTheme: ThemeData.dark(),
       home: Scaffold(
           appBar: AppBar(
             title: Center(
-              child: Text("Noticias",
+              child: Text("Produtos",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white)),
             ),
           ),
-          
           body: Center(
-            child: NotWidget(),
+            child: AuthCheck(),
           )),
     );
   }

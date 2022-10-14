@@ -1,8 +1,8 @@
-class Member {
-  String titulo;
-  String introducao;
-  String data_publicacao;
-  String link;
+class Produto {
+  String Site;
+  String Descricao;
+  String Preco;
+  String Link;
 
-  Member(this.titulo, this.introducao, this.data_publicacao, this.link);
+  Produto(this.Site, this.Descricao, this.Preco, this.Link);
 }
