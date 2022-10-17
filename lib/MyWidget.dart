@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:url_launcher/link.dart';
+
 //import 'package:json_annotation/json_annotation.dart';
 
 import 'package:noticias/member.dart';

@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:noticias/MyWidget.dart';
 import 'package:noticias/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -43,27 +42,27 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  //login() async {
-  //  setState(() => loading = true);
-  //  try {
-  //    await context.read<AuthService>().login(email.text, senha.text);
-  //  } on AuthExeption catch (e) {
-  //    setState(() => loading = false);
-  //    ScaffoldMessenger.of(context)
-  //        .showSnackBar(SnackBar(content: Text(e.Message)));
-  //  }
-  //}
-//
-  //registrar() async {
-  //  setState(() => loading = true);
-  //  try {
-  //    await context.read<AuthService>().registrar(email.text, senha.text);
-  //  } on AuthExeption catch (e) {
-  //    setState(() => loading = false);
-  //    ScaffoldMessenger.of(context)
-  //        .showSnackBar(SnackBar(content: Text(e.Message)));
-  //  }
-  //}
+  login() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthExeption catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.Message)));
+    }
+  }
+
+  registrar() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().registrar(email.text, senha.text);
+    } on AuthExeption catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.Message)));
+    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,9 +124,9 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
                         if (isLogin) {
-  //                        login();
+                          //                        login();
                         } else {
-  //                        registrar();
+                          //                        registrar();
                         }
                       }
                     },

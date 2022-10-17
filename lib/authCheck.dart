@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noticias/auth_service.dart';
 import 'package:noticias/login_page.dart';
 import 'package:noticias/main.dart';
 import 'package:provider/provider.dart';
+
+
 
 class AuthCheck extends StatefulWidget {
   AuthCheck({Key? key}) : super(key: key);
